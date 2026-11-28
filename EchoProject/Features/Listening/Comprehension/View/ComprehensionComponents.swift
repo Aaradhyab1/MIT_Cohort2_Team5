@@ -46,7 +46,7 @@ enum ComprehensionColor {
 enum ComprehensionLayout {
     static let questionTop: CGFloat = 24
     static let bottomButtonSideInset: CGFloat = 61
-    static let bottomButtonBottomInset: CGFloat = 28
+    static let bottomButtonBottomInset: CGFloat = EchoSpacing.bottomAction
     static let orderingRowHeight: CGFloat = 75
     static let matchingTileHeight: CGFloat = 106
     static let tutorialButtonHeight: CGFloat = 44

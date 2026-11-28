@@ -177,13 +177,16 @@ struct SpeakingAvatar: View {
 ///     Button("Hear pronunciation", action: vm.didTapHearPronunciation)
 ///         .buttonStyle(.speakingSecondary)
 struct SpeakingSecondaryButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .echoFont(.body, .semibold)
             .foregroundStyle(EchoColor.textPrimary)
-            .frame(maxWidth: EchoSize.buttonWidth, minHeight: 50)
+            .frame(maxWidth: EchoSize.buttonWidth, minHeight: EchoSize.buttonHeight)
             .contentShape(Capsule())
             .glassEffect(.regular.interactive(), in: .capsule)
+            .opacity(isEnabled ? 1 : 0.5)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
     }
 }

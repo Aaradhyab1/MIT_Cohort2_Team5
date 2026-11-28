@@ -33,15 +33,10 @@ struct LearnSoundsView: View {
                 Spacer(minLength: 0)
 
                 if vm.showsStart {
-                    // Standard bottom action, the same size as the app's other buttons (280 × 50).
-                    Button(action: vm.startTapped) {
-                        Text("Start the game")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .controlSize(.large)
-                    .frame(width: 280)
-                    .padding(.bottom, 8)
+                    // Standard bottom action, the same size and position as the app's other buttons.
+                    Button("Start the game", action: vm.startTapped)
+                        .buttonStyle(.echoGlassProminent)
+                        .padding(.bottom, EchoSpacing.bottomAction)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }

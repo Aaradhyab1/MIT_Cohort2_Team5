@@ -128,7 +128,7 @@ struct SentencesPracticeView: View {
 
     @ViewBuilder
     private var bottomButtons: some View {
-        VStack(spacing: EchoSpacing.m) {
+        VStack(spacing: EchoSpacing.buttonStack) {
             switch vm.phase {
             case .micDenied:
                 Button("Try microphone again", action: vm.startReading)
@@ -142,7 +142,7 @@ struct SentencesPracticeView: View {
             }
         }
         .padding(.horizontal, 40)
-        .padding(.bottom, EchoSpacing.l)
+        .padding(.bottom, EchoSpacing.bottomAction)
     }
 }
 

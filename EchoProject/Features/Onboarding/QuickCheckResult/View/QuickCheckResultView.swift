@@ -50,8 +50,8 @@ struct QuickCheckResultView: View {
         .safeAreaInset(edge: .bottom) {
             Button("Continue", action: vm.didTapContinue)
                 .buttonStyle(.echoPrimary)
-                .frame(maxWidth: 280)
-                .padding(.bottom, 24)
+                .frame(maxWidth: EchoSize.buttonWidth)
+                .padding(.bottom, EchoSpacing.bottomAction)
                 // Fades and rises into place once the reveal finishes.
                 .opacity(vm.isContinueVisible ? 1 : 0)
                 .offset(y: vm.isContinueVisible || reduceMotion ? 0 : 18)

@@ -10,27 +10,26 @@ struct BeforeYouStartView: View {
         _vm = State(initialValue: vm)
     }
 
+    // Layout (the same on every exercise; Vowel is the reference):
+    // the picture, title, summary and pills always sit at the same height, the card always
+    // starts the same distance below them and only grows with its steps, and Start is
+    // pinned to the bottom like every other main button in the app.
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView {
-                VStack(spacing: 0) {
-                    Spacer(minLength: EchoSpacing.s)
-                    intro
-                    // The biggest gap separates "what is this" from "how do I play".
-                    Spacer(minLength: EchoSpacing.section)
-                    howToPlay
-                    // The steps lead straight into Start, so they sit close together.
-                    startButton
-                        .padding(.top, EchoSpacing.xxl)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, EchoSpacing.screenHorizontal)
-                .padding(.bottom, EchoSpacing.l)
-                // Fill the screen so the spare room (no tab bar here) is shared out
-                // instead of piling up at the bottom. Large text still scrolls.
-                .frame(minHeight: proxy.size.height)
+        ScrollView {
+            VStack(spacing: 0) {
+                intro
+                // The biggest gap separates "what is this" from "how do I play".
+                howToPlay
+                    .padding(.top, EchoSpacing.section)
             }
-            .scrollBounceBehavior(.basedOnSize)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, EchoSpacing.screenHorizontal)
+            .padding(.top, EchoSpacing.xxl)
+            .padding(.bottom, EchoSpacing.l)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .echoBottomActions {
+            startButton
         }
         .echoScreenBackground()
         .navigationBarTitleDisplayMode(.inline)
