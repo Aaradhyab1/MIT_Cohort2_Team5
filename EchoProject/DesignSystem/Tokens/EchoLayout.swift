@@ -19,7 +19,6 @@ enum EchoSpacing {
 /// Fixed component sizes, in points.
 enum EchoSize {
     /// Width of the main and secondary buttons on every screen (Figma: 280 pt, centred).
-    /// Cards that sit with a button, such as "How to play", use it too so their edges line up.
     static let buttonWidth: CGFloat = 280
 }
 

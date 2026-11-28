@@ -11,26 +11,44 @@ struct BeforeYouStartView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: EchoSpacing.xl) {
-                artwork
-                titleBlock
-                metaPills
-                howToPlay
-                startButton
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer(minLength: EchoSpacing.s)
+                    intro
+                    // The biggest gap separates "what is this" from "how do I play".
+                    Spacer(minLength: EchoSpacing.section)
+                    howToPlay
+                    // The steps lead straight into Start, so they sit close together.
+                    startButton
+                        .padding(.top, EchoSpacing.xxl)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, EchoSpacing.screenHorizontal)
+                .padding(.bottom, EchoSpacing.l)
+                // Fill the screen so the spare room (no tab bar here) is shared out
+                // instead of piling up at the bottom. Large text still scrolls.
+                .frame(minHeight: proxy.size.height)
             }
-            // Keep the content (and so the scroll view and its background) full screen
-            // width; only the card and button inside are narrower.
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, EchoSpacing.screenHorizontal)
-            .padding(.top, EchoSpacing.s)
-            .padding(.bottom, 40)
+            .scrollBounceBehavior(.basedOnSize)
         }
         .echoScreenBackground()
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
     }
 
     // MARK: - Sections
+
+    /// Artwork, title and pills form one group, so they sit close together.
+    private var intro: some View {
+        VStack(spacing: EchoSpacing.l) {
+            artwork
+            VStack(spacing: EchoSpacing.m) {
+                titleBlock
+                metaPills
+            }
+        }
+    }
 
     private var artwork: some View {
         EchoArtwork(imageName: vm.illustration, cornerRadius: 84)
@@ -79,8 +97,7 @@ struct BeforeYouStartView: View {
             }
         }
         .padding(EchoSpacing.l)
-        // Same width as the Start button; the height follows the steps.
-        .frame(maxWidth: EchoSize.buttonWidth, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .echoCard(cornerRadius: EchoRadius.cardLarge)
     }
 
