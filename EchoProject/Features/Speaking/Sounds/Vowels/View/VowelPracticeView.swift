@@ -22,8 +22,9 @@ struct VowelPracticeView: View {
             controls
                 // Same height as the mic button in every state, so swapping buttons never
                 // moves the artwork above.
-                .frame(minHeight: 84)
-                .padding(.bottom, EchoSpacing.xxl)
+                // Bottom-aligned, so its buttons line up with every other screen's.
+                .frame(minHeight: 84, alignment: .bottom)
+                .padding(.bottom, EchoSpacing.bottomAction)
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

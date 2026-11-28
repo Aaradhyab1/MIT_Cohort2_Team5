@@ -38,7 +38,7 @@ struct EchoSecondaryButtonStyle: ButtonStyle {
         configuration.label
             .echoFont(.body, .medium)
             .foregroundStyle(EchoColor.textPrimary)
-            .frame(maxWidth: EchoSize.buttonWidth, minHeight: 56)
+            .frame(maxWidth: EchoSize.buttonWidth, minHeight: EchoSize.buttonHeight)
             .glassEffect(.regular.interactive(), in: .capsule)
             .opacity(isEnabled ? 1 : 0.5)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)

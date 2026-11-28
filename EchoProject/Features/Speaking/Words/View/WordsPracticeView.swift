@@ -41,7 +41,7 @@ struct WordsPracticeView: View {
             bottomButtons
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
-        .padding(.bottom, EchoSpacing.xl)
+        .padding(.bottom, EchoSpacing.bottomAction)
     }
 
     /// The control under the character, which changes with each step.
@@ -93,7 +93,7 @@ struct WordsPracticeView: View {
 
     @ViewBuilder
     private var bottomButtons: some View {
-        VStack(spacing: EchoSpacing.m) {
+        VStack(spacing: EchoSpacing.buttonStack) {
             switch vm.phase {
             case .listened:
                 Button("Record", action: vm.didTapRecord)

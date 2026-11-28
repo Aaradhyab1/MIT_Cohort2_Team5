@@ -16,7 +16,7 @@ struct SoundsPracticeView: View {
                 Button("Finish (demo)", action: vm.didTapFinishDemo)
                     .buttonStyle(.echoPrimary)
                     .padding(.horizontal, EchoSpacing.screenHorizontal)
-                    .padding(.bottom, EchoSpacing.l)
+                    .padding(.bottom, EchoSpacing.bottomAction)
             }
             .exerciseChrome(onBack: vm.didTapBack)
     }

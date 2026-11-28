@@ -24,7 +24,7 @@ struct CompletionView: View {
 
             buttons
         }
-        .padding(.bottom, EchoSpacing.section)
+        .padding(.bottom, EchoSpacing.bottomAction)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .echoExerciseBackground()
         .toolbar(.hidden, for: .navigationBar)
@@ -89,28 +89,16 @@ struct CompletionView: View {
     // MARK: - Continue / Try Again
 
     private var buttons: some View {
-        VStack(spacing: 14) {
-            Button {
-                vm.primaryTapped()
-            } label: {
-                Text(vm.primaryTitle)
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.glassProminent)
+        VStack(spacing: EchoSpacing.buttonStack) {
+            Button(vm.primaryTitle, action: vm.primaryTapped)
+                .buttonStyle(.echoGlassProminent)
 
             if vm.showsTryAgain {
-                Button {
-                    vm.tryAgainTapped()
-                } label: {
-                    Text("Try Again")
-                        .foregroundStyle(EchoColor.textPrimary)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.glass)
+                Button("Try Again", action: vm.tryAgainTapped)
+                    .buttonStyle(.echoGlass)
             }
         }
-        .controlSize(.large)
-        .frame(width: 280)
+        .frame(maxWidth: .infinity)
     }
 }
 

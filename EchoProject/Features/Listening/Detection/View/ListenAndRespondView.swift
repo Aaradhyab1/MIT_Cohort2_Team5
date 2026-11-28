@@ -138,37 +138,23 @@ struct ListenAndRespondView: View {
             }
 
         case .asking:
-            VStack(spacing: 14) {
-                Button {
+            VStack(spacing: EchoSpacing.buttonStack) {
+                Button("I Heard It") {
                     vm.answer(heardIt: true)
-                } label: {
-                    Text("I Heard It")
-                        .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.glassProminent)
+                .buttonStyle(.echoGlassProminent)
 
-                Button {
+                Button("I Didn’t Hear It") {
                     vm.answer(heardIt: false)
-                } label: {
-                    Text("I Didn’t Hear It")
-                        .foregroundStyle(EchoColor.textPrimary)
-                        .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.glass)
+                .buttonStyle(.echoGlass)
             }
-            .controlSize(.large)
-            .frame(width: 280)
+            .frame(width: EchoSize.buttonWidth)
 
         case .reveal:
-            Button {
-                vm.nextTapped()
-            } label: {
-                Text("Next")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.glassProminent)
-            .controlSize(.large)
-            .frame(width: 280)
+            Button("Next", action: vm.nextTapped)
+                .buttonStyle(.echoGlassProminent)
+                .frame(width: EchoSize.buttonWidth)
         }
     }
 }

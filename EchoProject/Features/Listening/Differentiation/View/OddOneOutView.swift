@@ -39,8 +39,8 @@ struct OddOneOutView: View {
             Spacer(minLength: Layout.gap)
 
             bottomButton
-                .frame(height: 50)
-                .padding(.bottom, 32)
+                .frame(height: EchoSize.buttonHeight)
+                .padding(.bottom, EchoSpacing.bottomAction)
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -203,15 +203,11 @@ struct OddOneOutView: View {
     @ViewBuilder
     private func wideButton(_ title: String, prominent: Bool, action: @escaping () -> Void) -> some View {
         if prominent {
-            Button(action: action) { Text(title).frame(maxWidth: .infinity) }
-                .buttonStyle(.glassProminent)
-                .controlSize(.large)
-                .frame(width: 280)
+            Button(title, action: action)
+                .buttonStyle(.echoGlassProminent)
         } else {
-            Button(action: action) { Text(title).frame(maxWidth: .infinity) }
-                .buttonStyle(.glass)
-                .controlSize(.large)
-                .frame(width: 280)
+            Button(title, action: action)
+                .buttonStyle(.echoGlass)
         }
     }
 }

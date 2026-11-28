@@ -108,7 +108,7 @@ struct ConversationView: View {
             bottom
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
-        .padding(.bottom, EchoSpacing.xl)
+        .padding(.bottom, EchoSpacing.bottomAction)
     }
 
     /// The child's last answer, on the right like a chat message.
@@ -226,7 +226,7 @@ struct ConversationView: View {
                 .buttonStyle(.echoPrimary)
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
-        .padding(.bottom, EchoSpacing.xl)
+        .padding(.bottom, EchoSpacing.bottomAction)
     }
 
     // MARK: - Recovery

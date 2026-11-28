@@ -27,9 +27,10 @@ struct ConversationIntroView: View {
 
             Button("Start Conversation", action: onStart)
                 .buttonStyle(.echoPrimary)
+                .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, EchoSpacing.screenHorizontal)
-        .padding(.bottom, EchoSpacing.xl)
+        .padding(.bottom, EchoSpacing.bottomAction)
     }
 
     private var card: some View {

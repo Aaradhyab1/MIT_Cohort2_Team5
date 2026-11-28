@@ -44,7 +44,7 @@ struct SentencesCompletionView: View {
 
             buttons
         }
-        .padding(.bottom, EchoSpacing.section)
+        .padding(.bottom, EchoSpacing.bottomAction)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             withAnimation(reduceMotion ? nil : .easeOut(duration: 0.9).delay(0.2)) {
@@ -117,23 +117,15 @@ struct SentencesCompletionView: View {
     // MARK: - Try again / Next sentence or Back to home (Figma "Completion actions", 280 wide)
 
     private var buttons: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: EchoSpacing.buttonStack) {
             if result.tier.offersTryAgain {
-                Button(action: onTryAgain) {
-                    Text("Try again")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.glassProminent)
+                Button("Try again", action: onTryAgain)
+                    .buttonStyle(.echoGlassProminent)
             }
-            Button(action: onContinue) {
-                Text(continueTitle)
-                    .foregroundStyle(EchoColor.textPrimary)
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.glass)
+            Button(continueTitle, action: onContinue)
+                .buttonStyle(.echoGlass)
         }
-        .controlSize(.large)
-        .frame(width: 280)
+        .frame(maxWidth: .infinity)
     }
 }
 

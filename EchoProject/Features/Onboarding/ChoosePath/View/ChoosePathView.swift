@@ -75,14 +75,14 @@ struct ChoosePathView: View {
             .padding(.top, 3)
         }
         .safeAreaInset(edge: .bottom) {
-            VStack(spacing: EchoSpacing.l) {
+            VStack(spacing: EchoSpacing.buttonStack) {
                 Button("Start the Quick Check", action: vm.didTapQuickCheck)
                     .buttonStyle(.echoPrimary)
                 Button("I\u{2019}ll choose the level myself", action: vm.didTapChooseLevel)
                     .buttonStyle(.echoSecondary)
             }
-            .frame(maxWidth: 280)
-            .padding(.bottom, 24)
+            .frame(maxWidth: EchoSize.buttonWidth)
+            .padding(.bottom, EchoSpacing.bottomAction)
         }
     }
 }

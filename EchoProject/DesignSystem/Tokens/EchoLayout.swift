@@ -14,12 +14,19 @@ enum EchoSpacing {
     static let screenHorizontal: CGFloat = 20
     /// Vertical gap between sections of a scrolling screen.
     static let section: CGFloat = 28
+    /// Gap between a screen's bottom buttons and the bottom safe area (home indicator).
+    /// The same on every screen, so the main button never moves between screens.
+    static let bottomAction: CGFloat = 16
+    /// Gap between stacked buttons, e.g. a primary button over a secondary one.
+    static let buttonStack: CGFloat = 12
 }
 
 /// Fixed component sizes, in points.
 enum EchoSize {
     /// Width of the main and secondary buttons on every screen (Figma: 280 pt, centred).
     static let buttonWidth: CGFloat = 280
+    /// Height of the main and secondary buttons on every screen.
+    static let buttonHeight: CGFloat = 56
 }
 
 /// Corner radii, in points. Pills and buttons are capsules and use `Capsule()` instead.
