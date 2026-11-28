@@ -19,19 +19,24 @@ struct OddOneOutView: View {
             }
             .frame(height: 44)
 
-            titleCard
+            header
                 .padding(.top, 17)
 
-            if vm.showsCelebration {
-                celebration
-                    .padding(.top, 26)
-                    .transition(.scale(scale: 0.9).combined(with: .opacity))
-            } else {
-                friendCards
-                    .padding(.top, 24)
+            // One fixed-size stage for the cards and the celebration, so nothing
+            // below it (or the header above) moves when the content changes.
+            ZStack(alignment: .top) {
+                if vm.showsCelebration {
+                    celebration
+                        .transition(.scale(scale: 0.9).combined(with: .opacity))
+                } else {
+                    friendCards
+                        .transition(.opacity)
+                }
             }
+            .frame(height: Layout.stageHeight, alignment: .top)
+            .padding(.top, Layout.gap)
 
-            Spacer(minLength: 0)
+            Spacer(minLength: Layout.gap)
 
             bottomButton
                 .frame(height: 50)
@@ -46,32 +51,43 @@ struct OddOneOutView: View {
         .onDisappear { vm.stopAll() }
     }
 
-    // MARK: - Title card (Figma "Title card (glass)", 362 × 110)
+    // MARK: - Layout constants (shared so spacing stays the same in every phase)
 
-    private var titleCard: some View {
+    private enum Layout {
+        /// Space between header, cards and the button.
+        static let gap: CGFloat = 24
+        static let cardWidth: CGFloat = 171
+        static let cardHeight: CGFloat = 207
+        static let cardSpacing: CGFloat = 20
+        /// Two rows of cards; the celebration (300 tall) fits inside this too.
+        static let stageHeight: CGFloat = cardHeight * 2 + cardSpacing
+    }
+
+    // MARK: - Header: plain title and helper text, no card behind it (matches the other flows)
+
+    private var header: some View {
         VStack(spacing: EchoSpacing.s) {
             Text(vm.title)
                 .echoFont(.title, .bold)
                 .foregroundStyle(Color(hex: 0x181F2F))
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            // Always reserve two lines so a longer or shorter line never pushes the cards.
             Text(vm.subtitle)
                 .echoFont(.body)
                 .foregroundStyle(Color(hex: 0x455269))
-                .frame(minHeight: 44, alignment: .top)
+                .lineLimit(2, reservesSpace: true)
         }
         .multilineTextAlignment(.center)
-        .padding(.vertical, EchoSpacing.l)
-        .padding(.horizontal, EchoSpacing.xl)
         .frame(maxWidth: 362)
-        .background(.ultraThinMaterial.opacity(0.6), in: RoundedRectangle(cornerRadius: 28))
-        .shadow(color: Color(hex: 0x1A4D40, opacity: 0.2), radius: 6, y: 8)
     }
 
     // MARK: - Friend cards: Mia and Leo in a row, Zoe centred below
 
     private var friendCards: some View {
         let cards = vm.cards
-        return VStack(spacing: 20) {
-            HStack(spacing: 20) {
+        return VStack(spacing: Layout.cardSpacing) {
+            HStack(spacing: Layout.cardSpacing) {
                 ForEach(cards.prefix(2)) { card in friendCard(card) }
             }
             ForEach(cards.dropFirst(2)) { card in friendCard(card) }
@@ -91,9 +107,11 @@ struct OddOneOutView: View {
                 Text(card.status)
                     .echoFont(.caption, card.highlight == .correct ? .semibold : .regular)
                     .foregroundStyle(Color(hex: 0x455269))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
             }
             .padding(14)
-            .frame(width: 171, height: 207)
+            .frame(width: Layout.cardWidth, height: Layout.cardHeight)
             .background(.ultraThinMaterial.opacity(0.5), in: RoundedRectangle(cornerRadius: 30))
             .background(.white.opacity(0.5), in: RoundedRectangle(cornerRadius: 30))
             .overlay(
