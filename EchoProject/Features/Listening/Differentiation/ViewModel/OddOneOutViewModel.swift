@@ -141,7 +141,8 @@ final class OddOneOutViewModel {
         case .start: return .start
         case .speaking(_, let replay): return replay ? .replaying : nil
         case .choosing, .wrong: return .replay
-        case .correct, .celebrate: return .next
+        case .correct: return nil          // the celebration follows by itself
+        case .celebrate: return .next
         }
     }
 
@@ -156,6 +157,7 @@ final class OddOneOutViewModel {
         if friendId == oddId {
             if !missedThisRound { firstTryCorrect += 1 }
             phase = .correct
+            showCelebrationSoon()
         } else {
             missedThisRound = true
             phase = .wrong(friendId: friendId)
@@ -207,6 +209,18 @@ final class OddOneOutViewModel {
         switch phase {
         case .choosing, .wrong: return true
         default: return false
+        }
+    }
+
+    /// After a right answer, show the green card for a moment, then the celebration.
+    /// Uses the playback id so a late timer can't fire after leaving or moving on.
+    private func showCelebrationSoon() {
+        playbackId += 1
+        let id = playbackId
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            guard id == playbackId, phase == .correct else { return }
+            phase = .celebrate
         }
     }
 
